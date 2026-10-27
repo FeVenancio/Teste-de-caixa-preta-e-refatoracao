@@ -1,40 +1,69 @@
+
 package calculadora;
-/*
-    Implementa operações matemáticas básicas.
-    @author Felipe Sanches Venâncio
-    @version 1.0
-*/
+
+/**
+ * Realiza operações matemáticas básicas.
+ *
+ * @author Felipe Sanches Venâncio
+ * @version 2.0
+ */
 public class Calculadora {
-    /*
-        Executa uma operação matemática entre dois números inteiros.
-        @param a primeiro número da operação
-        @param b segundo número da operação
-        @param op operador matemático (+, -, * ou /)
-        @return mensagem contendo o resultado ou a descrição do erro
+
+    private static final String MENSAGEM_RESULTADO =
+            "O resultado é: ";
+
+    /**
+     * Executa uma operação matemática entre dois números inteiros.
+     *
+     * @param a primeiro número
+     * @param b segundo número
+     * @param op operador matemático
+     * @return resultado ou mensagem de erro
      */
     public String calc(int a, int b, String op) {
 
-        // Verifica se o operador é válido e executa a operação.
-        if ("+".equals(op)) {
-            return "O resultado é: " + (a + b);
+        if (op == null) {
+            return mensagemOperadorInvalido();
+        }
 
-        } else if ("-".equals(op)) {
-            return "O resultado é: " + (a - b);
+        switch (op) {
+            case "+":
+                return formatarResultado(a + b);
 
-        } else if ("*".equals(op)) {
-            return "O resultado é: " + (a * b);
+            case "-":
+                return formatarResultado(a - b);
 
-        } else if ("/".equals(op)) {
+            case "*":
+                return formatarResultado(a * b);
 
-            // O divisor é o segundo número: b.
-            if (b == 0) {
-                return "Não é possível divisão por 0";
-            }
+            case "/":
+                if (b == 0) {
+                    return "Não é possível divisão por 0";
+                }
+                return formatarResultado(a / b);
 
-            return "O resultado é: " + (a / b);
-
-        } else {
-            return "Operador inválido, tente (+, -, / ou *)";
+            default:
+                return mensagemOperadorInvalido();
         }
     }
+
+    /**
+     * Formata o resultado de uma operação.
+     *
+     * @param resultado valor calculado
+     * @return resultado acompanhado da mensagem padrão
+     */
+    private String formatarResultado(int resultado) {
+        return MENSAGEM_RESULTADO + resultado;
+    }
+
+    /**
+     * Retorna a mensagem para operadores inválidos.
+     *
+     * @return mensagem de erro
+     */
+    private String mensagemOperadorInvalido() {
+        return "Operador inválido, tente (+, -, / ou *)";
+    }
 }
+
